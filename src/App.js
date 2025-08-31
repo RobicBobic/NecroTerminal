@@ -73,204 +73,6 @@ function App() {
     }
   }, [history]);
 
-  const commands = {
-    help: () => [
-      'NECRO TERMINAL v2.1.4 - Available Commands:',
-      '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-      'help        - Show this help menu',
-      'clear       - Clear terminal screen',
-      'ls          - List directory contents',
-      'pwd         - Show current directory',
-      'cd [dir]    - Change directory',
-      'cat [file]  - Display file contents',
-      'ps          - Show running processes',
-      'top         - Display system resources',
-      'netstat     - Show network connections',
-      'hack        - Initialize hacking protocol',
-      'matrix      - Enter the matrix',
-      'scan        - Scan for vulnerabilities',
-      'whoami      - Display current user',
-      'date        - Show current date/time',
-      'uname       - System information',
-      'exit        - Close terminal'
-    ],
-    
-    clear: () => {
-      setHistory([]);
-      return [];
-    },
-    
-    ls: () => [
-      'drwxr-xr-x  4 necro necro  4096 Aug 31 14:32 documents/',
-      'drwxr-xr-x  2 necro necro  4096 Aug 31 14:30 downloads/',
-      '-rw-r--r--  1 necro necro  1337 Aug 31 14:25 secrets.txt',
-      '-rwxr-xr-x  1 necro necro  8192 Aug 31 14:20 exploit.bin',
-      'drwxr-xr-x  3 necro necro  4096 Aug 31 14:15 projects/',
-      '-rw-r--r--  1 necro necro   256 Aug 31 14:10 .hidden'
-    ],
-    
-    pwd: () => [currentPath],
-    
-    cd: (args) => {
-      const dir = args[0] || '/home/necro';
-      setCurrentPath(dir);
-      return [`Changed directory to ${dir}`];
-    },
-    
-    cat: (args) => {
-      const file = args[0];
-      if (!file) return ['cat: missing file operand'];
-      
-      const files = {
-        'secrets.txt': [
-          '████ CLASSIFIED INFORMATION ████',
-          'Project: NECRO-NET',
-          'Status: ACTIVE',
-          'Clearance Level: OMEGA',
-          'Access Code: NX-7749-DELTA',
-          '████████████████████████████████'
-        ],
-        '.hidden': [
-          'You found the hidden file!',
-          'Congratulations, digital archaeologist.',
-          'The shadows hold many secrets...'
-        ]
-      };
-      
-      return files[file] || [`cat: ${file}: No such file or directory`];
-    },
-    
-    ps: () => [
-      'PID    USER     %CPU  %MEM  COMMAND',
-      '1337   necro    15.2   8.4  /usr/bin/necro-core',
-      '1984   necro     3.1   2.1  /bin/shadow-daemon',
-      '2077   necro    45.7  12.3  ./quantum-parser',
-      '3141   necro     0.8   1.2  /usr/sbin/crypto-miner',
-      '4096   necro     2.3   0.9  [kernel-ghost]',
-      '6666   necro    88.9  25.1  ./matrix-interface'
-    ],
-    
-    top: () => [
-      'NECRO SYSTEM MONITOR',
-      '━━━━━━━━━━━━━━━━━━━━━',
-      `CPU Usage: ${cpuUsage.toFixed(1)}%`,
-      `Memory: ${memUsage.toFixed(1)}% of 32GB`,
-      `Network: ${networkActivity.toFixed(1)} Mbps`,
-      `Uptime: 13:37:42`,
-      `Load: 0.${Math.floor(Math.random() * 99)} 0.${Math.floor(Math.random() * 99)} 0.${Math.floor(Math.random() * 99)}`,
-      `Processes: 256 total, 128 running`
-    ],
-    
-    netstat: () => [
-      'Active Network Connections:',
-      'tcp4  0.0.0.0:22      ESTABLISHED  (ssh)',
-      'tcp4  0.0.0.0:80      LISTENING    (http)',
-      'tcp4  0.0.0.0:443     LISTENING    (https)',
-      'tcp4  0.0.0.0:1337    LISTENING    (necro-net)',
-      'udp4  0.0.0.0:53      *.*          (dns)',
-      'tcp6  ::1:6666        ESTABLISHED  (matrix)'
-    ],
-    
-    hack: () => [
-      'Initializing NECRO hacking protocol...',
-      '▓▓▓▓▓▓▓▓▓▓ 100%',
-      '',
-      '████████████████████████████████████████',
-      '█ BREACH PROTOCOL ACTIVATED           █',
-      '█                                     █',  
-      '█ > Scanning target network...        █',
-      '█ > 192.168.1.1 [FIREWALL DETECTED]   █',
-      '█ > Injecting payload...              █',
-      '█ > Exploiting buffer overflow...     █',
-      '█ > Escalating privileges...          █',
-      '█ > ROOT ACCESS GRANTED               █',
-      '█                                     █',
-      '█ STATUS: SYSTEM COMPROMISED          █',
-      '████████████████████████████████████████',
-      '',
-      'WARNING: Unauthorized access detected',
-      'Firewall bypassed successfully',
-      'Welcome to the dark side of the net...',
-      '',
-      '> All your base are belong to us'
-    ],
-    
-    matrix: () => [
-      '████████████████████████████████████████████████████████████████████',
-      '█                                                                  █',
-      '█  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄  █',
-      '█  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██  █',
-      '█  ██ THE MATRIX HAS YOU, NEO...                              ██  █',
-      '█  ██                                                        ██  █',
-      '█  ██    Wake up, Neo...                                     ██  █',
-      '█  ██    The Matrix has you...                               ██  █',
-      '█  ██    Follow the white rabbit.                            ██  █',
-      '█  ██                                                        ██  █',
-      '█  ██    Knock, knock, Neo.                                  ██  █',
-      '█  ██                                                        ██  █',
-      '█  ██    ┌─┐ ┬ ┬ ┌─┐ ┬┌─┬ ┬ ┌┐┌   ┌─┐ ┬─┐   ┌┐ ┬  ┬ ┬ ┌─┐      ██  █',
-      '█  ██    │   ├─┤ │ │ │├┴┐└┬┘ │││   │ │ ├┬┘   ├┴┐│  │ │ │ │      ██  █',
-      '█  ██    └─┘ ┴ ┴ └─┘ ┴ ┴ ┴  ┘└┘   └─┘ ┴└─   └─┘┴─┘└─┘ └─┘      ██  █',
-      '█  ██                                                        ██  █',
-      '█  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  █',
-      '█                                                                  █',
-      '████████████████████████████████████████████████████████████████████',
-      '',
-      'Welcome to the Matrix, Neo.',
-      'You have been living in a dream world.',
-      'This is your last chance. After this, there is no going back.',
-      '',
-      'The choice is yours: Red pill or blue pill?'
-    ],
-    
-    scan: () => [
-      '████████████████████████████████████████████████████████████████████',
-      '█                    VULNERABILITY SCANNER v3.0                   █',
-      '████████████████████████████████████████████████████████████████████',
-      '',
-      'Initializing deep packet inspection...',
-      'Scanning network topology...',
-      'Probing target: 192.168.1.0/24',
-      '',
-      '┌─────────────────────────────────────────────────────────────────┐',
-      '│ PORT SCAN RESULTS                                               │',
-      '├─────────────────────────────────────────────────────────────────┤',
-      '│ 22/tcp    OPEN    SSH-2.0-OpenSSH_8.9                          │',
-      '│ 80/tcp    OPEN    Apache/2.4.41                                 │',
-      '│ 443/tcp   OPEN    nginx/1.18.0                                  │',
-      '│ 3306/tcp  OPEN    MySQL 8.0.28                                  │',
-      '│ 8080/tcp  OPEN    Jetty 9.4.43                                  │',
-      '└─────────────────────────────────────────────────────────────────┘',
-      '',
-      'VULNERABILITIES DETECTED:',
-      'CVE-2022-0778: Infinite loop in BN_mod_sqrt()',
-      'CVE-2021-44228: Log4j RCE vulnerability',
-      'CVE-2019-14287: Sudo privilege escalation',
-      '',
-      'CRITICAL: 3 high-severity vulnerabilities found',
-      'BACKDOORS: 2 potential entry points identified',
-      'TARGET STATUS: COMPROMISABLE',
-      '',
-      'Scan complete. Infiltration vectors ready for deployment.'
-    ],
-    
-    whoami: () => ['necro'],
-    
-    date: () => [new Date().toString()],
-    
-    uname: () => [
-      'NECRO-OS 2.1.4-DARKNET',
-      'Kernel: Linux necro-kernel 5.15.0-necro',
-      'Architecture: x86_64',
-      'Processor: Intel(R) Quantum Core(TM) i9-13900KS'
-    ],
-    
-    exit: () => {
-      setIsConnected(false);
-      return ['Connection terminated. Farewell, digital wanderer.'];
-    }
-  };
-
   const executeCommand = useCallback((cmd) => {
     const parts = cmd.trim().split(' ');
     const command = parts[0].toLowerCase();
@@ -278,12 +80,210 @@ function App() {
     
     if (command === '') return [];
     
+    const commands = {
+      help: () => [
+        'NECRO TERMINAL v2.1.4 - Available Commands:',
+        '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+        'help        - Show this help menu',
+        'clear       - Clear terminal screen',
+        'ls          - List directory contents',
+        'pwd         - Show current directory',
+        'cd [dir]    - Change directory',
+        'cat [file]  - Display file contents',
+        'ps          - Show running processes',
+        'top         - Display system resources',
+        'netstat     - Show network connections',
+        'hack        - Initialize hacking protocol',
+        'matrix      - Enter the matrix',
+        'scan        - Scan for vulnerabilities',
+        'whoami      - Display current user',
+        'date        - Show current date/time',
+        'uname       - System information',
+        'exit        - Close terminal'
+      ],
+      
+      clear: () => {
+        setHistory([]);
+        return [];
+      },
+      
+      ls: () => [
+        'drwxr-xr-x  4 necro necro  4096 Aug 31 14:32 documents/',
+        'drwxr-xr-x  2 necro necro  4096 Aug 31 14:30 downloads/',
+        '-rw-r--r--  1 necro necro  1337 Aug 31 14:25 secrets.txt',
+        '-rwxr-xr-x  1 necro necro  8192 Aug 31 14:20 exploit.bin',
+        'drwxr-xr-x  3 necro necro  4096 Aug 31 14:15 projects/',
+        '-rw-r--r--  1 necro necro   256 Aug 31 14:10 .hidden'
+      ],
+      
+      pwd: () => [currentPath],
+      
+      cd: (args) => {
+        const dir = args[0] || '/home/necro';
+        setCurrentPath(dir);
+        return [`Changed directory to ${dir}`];
+      },
+      
+      cat: (args) => {
+        const file = args[0];
+        if (!file) return ['cat: missing file operand'];
+        
+        const files = {
+          'secrets.txt': [
+            '████ CLASSIFIED INFORMATION ████',
+            'Project: NECRO-NET',
+            'Status: ACTIVE',
+            'Clearance Level: OMEGA',
+            'Access Code: NX-7749-DELTA',
+            '████████████████████████████████'
+          ],
+          '.hidden': [
+            'You found the hidden file!',
+            'Congratulations, digital archaeologist.',
+            'The shadows hold many secrets...'
+          ]
+        };
+        
+        return files[file] || [`cat: ${file}: No such file or directory`];
+      },
+      
+      ps: () => [
+        'PID    USER     %CPU  %MEM  COMMAND',
+        '1337   necro    15.2   8.4  /usr/bin/necro-core',
+        '1984   necro     3.1   2.1  /bin/shadow-daemon',
+        '2077   necro    45.7  12.3  ./quantum-parser',
+        '3141   necro     0.8   1.2  /usr/sbin/crypto-miner',
+        '4096   necro     2.3   0.9  [kernel-ghost]',
+        '6666   necro    88.9  25.1  ./matrix-interface'
+      ],
+      
+      top: () => [
+        'NECRO SYSTEM MONITOR',
+        '━━━━━━━━━━━━━━━━━━━━━',
+        `CPU Usage: ${cpuUsage.toFixed(1)}%`,
+        `Memory: ${memUsage.toFixed(1)}% of 32GB`,
+        `Network: ${networkActivity.toFixed(1)} Mbps`,
+        `Uptime: 13:37:42`,
+        `Load: 0.${Math.floor(Math.random() * 99)} 0.${Math.floor(Math.random() * 99)} 0.${Math.floor(Math.random() * 99)}`,
+        `Processes: 256 total, 128 running`
+      ],
+      
+      netstat: () => [
+        'Active Network Connections:',
+        'tcp4  0.0.0.0:22      ESTABLISHED  (ssh)',
+        'tcp4  0.0.0.0:80      LISTENING    (http)',
+        'tcp4  0.0.0.0:443     LISTENING    (https)',
+        'tcp4  0.0.0.0:1337    LISTENING    (necro-net)',
+        'udp4  0.0.0.0:53      *.*          (dns)',
+        'tcp6  ::1:6666        ESTABLISHED  (matrix)'
+      ],
+      
+      hack: () => [
+        'Initializing NECRO hacking protocol...',
+        '▓▓▓▓▓▓▓▓▓▓ 100%',
+        '',
+        '████████████████████████████████████████',
+        '█ BREACH PROTOCOL ACTIVATED           █',
+        '█                                     █',  
+        '█ > Scanning target network...        █',
+        '█ > 192.168.1.1 [FIREWALL DETECTED]   █',
+        '█ > Injecting payload...              █',
+        '█ > Exploiting buffer overflow...     █',
+        '█ > Escalating privileges...          █',
+        '█ > ROOT ACCESS GRANTED               █',
+        '█                                     █',
+        '█ STATUS: SYSTEM COMPROMISED          █',
+        '████████████████████████████████████████',
+        '',
+        'WARNING: Unauthorized access detected',
+        'Firewall bypassed successfully',
+        'Welcome to the dark side of the net...',
+        '',
+        '> All your base are belong to us'
+      ],
+      
+      matrix: () => [
+        '████████████████████████████████████████████████████████████████████',
+        '█                                                                  █',
+        '█  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄  █',
+        '█  ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██ ██  █',
+        '█  ██ THE MATRIX HAS YOU, NEO...                              ██  █',
+        '█  ██                                                        ██  █',
+        '█  ██    Wake up, Neo...                                     ██  █',
+        '█  ██    The Matrix has you...                               ██  █',
+        '█  ██    Follow the white rabbit.                            ██  █',
+        '█  ██                                                        ██  █',
+        '█  ██    Knock, knock, Neo.                                  ██  █',
+        '█  ██                                                        ██  █',
+        '█  ██    ┌─┐ ┬ ┬ ┌─┐ ┬┌─┬ ┬ ┌┐┌   ┌─┐ ┬─┐   ┌┐ ┬  ┬ ┬ ┌─┐      ██  █',
+        '█  ██    │   ├─┤ │ │ │├┴┐└┬┘ │││   │ │ ├┬┘   ├┴┐│  │ │ │ │      ██  █',
+        '█  ██    └─┘ ┴ ┴ └─┘ ┴ ┴ ┴  ┘└┘   └─┘ ┴└─   └─┘┴─┘└─┘ └─┘      ██  █',
+        '█  ██                                                        ██  █',
+        '█  ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  █',
+        '█                                                                  █',
+        '████████████████████████████████████████████████████████████████████',
+        '',
+        'Welcome to the Matrix, Neo.',
+        'You have been living in a dream world.',
+        'This is your last chance. After this, there is no going back.',
+        '',
+        'The choice is yours: Red pill or blue pill?'
+      ],
+      
+      scan: () => [
+        '████████████████████████████████████████████████████████████████████',
+        '█                    VULNERABILITY SCANNER v3.0                   █',
+        '████████████████████████████████████████████████████████████████████',
+        '',
+        'Initializing deep packet inspection...',
+        'Scanning network topology...',
+        'Probing target: 192.168.1.0/24',
+        '',
+        '┌─────────────────────────────────────────────────────────────────┐',
+        '│ PORT SCAN RESULTS                                               │',
+        '├─────────────────────────────────────────────────────────────────┤',
+        '│ 22/tcp    OPEN    SSH-2.0-OpenSSH_8.9                          │',
+        '│ 80/tcp    OPEN    Apache/2.4.41                                 │',
+        '│ 443/tcp   OPEN    nginx/1.18.0                                  │',
+        '│ 3306/tcp  OPEN    MySQL 8.0.28                                  │',
+        '│ 8080/tcp  OPEN    Jetty 9.4.43                                  │',
+        '└─────────────────────────────────────────────────────────────────┘',
+        '',
+        'VULNERABILITIES DETECTED:',
+        'CVE-2022-0778: Infinite loop in BN_mod_sqrt()',
+        'CVE-2021-44228: Log4j RCE vulnerability',
+        'CVE-2019-14287: Sudo privilege escalation',
+        '',
+        'CRITICAL: 3 high-severity vulnerabilities found',
+        'BACKDOORS: 2 potential entry points identified',
+        'TARGET STATUS: COMPROMISABLE',
+        '',
+        'Scan complete. Infiltration vectors ready for deployment.'
+      ],
+      
+      whoami: () => ['necro'],
+      
+      date: () => [new Date().toString()],
+      
+      uname: () => [
+        'NECRO-OS 2.1.4-DARKNET',
+        'Kernel: Linux necro-kernel 5.15.0-necro',
+        'Architecture: x86_64',
+        'Processor: Intel(R) Quantum Core(TM) i9-13900KS'
+      ],
+      
+      exit: () => {
+        setIsConnected(false);
+        return ['Connection terminated. Farewell, digital wanderer.'];
+      }
+    };
+
     if (commands[command]) {
       return commands[command](args);
     } else {
       return [`necro: command not found: ${command}`];
     }
-  }, [commands, cpuUsage, memUsage, networkActivity]);
+  }, [currentPath, setCurrentPath, setHistory, setIsConnected, cpuUsage, memUsage, networkActivity]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
