@@ -1,38 +1,371 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Courier New', monospace;
+  background: black;
+  color: white;
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.terminal-container {
   min-height: 100vh;
+  background: black;
   display: flex;
   flex-direction: column;
+}
+
+.header {
+  background: black;
+  border-bottom: 1px solid #444;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 2px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-dot.connected {
+  background: white;
+}
+
+.status-dot.disconnected {
+  background: #666;
+}
+
+.header-right {
+  display: flex;
+  gap: 24px;
+  font-size: 12px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.terminal-content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background: black;
+}
+
+.command-entry {
+  margin-bottom: 16px;
+}
+
+.command-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  gap: 8px;
+}
+
+.prompt {
+  color: white;
+}
+
+.path {
+  color: white;
+}
+
+.dollar {
+  color: #888;
+}
+
+.command-text {
+  color: white;
+}
+
+.welcome-output {
+  /* No left margin for welcome */
+}
+
+.command-output {
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid #444;
+}
+
+.output-line {
+  font-size: 14px;
+  color: white;
+  white-space: pre;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.cursor {
+  width: 8px;
+  height: 20px;
+  background: white;
+  animation: blink 1s infinite;
+}
+
+/* Footer Styles - v28 Complete */
+.footer {
+  background: black;
+  border-top: 1px solid #444;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.footer-right {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* System Status Bars */
+.status-bars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  border-top: 1px solid #444;
+  padding-top: 8px;
+  margin-bottom: 8px;
+}
+
+.status-bar {
+  background: black;
+  border: 1px solid #666;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.status-label {
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.status-value {
+  color: white;
+  font-size: 10px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: #666;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: white;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+/* System Information */
+.system-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #444;
+  padding-top: 8px;
+  margin-bottom: 8px;
+}
+
+.system-info-left {
+  display: flex;
+  gap: 24px;
+}
+
+.system-info-right {
+  display: flex;
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  animation: pulse 2s infinite;
+}
+
+/* Extended Footer Information */
+.extended-footer {
+  border-top: 1px solid #444;
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.footer-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.footer-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.info-panel {
+  background: black;
+  border: 1px solid #666;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.panel-title {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.panel-content {
+  color: white;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.panel-content div {
+  margin-bottom: 2px;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 8px;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .status-bars {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .system-info {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .system-info-left,
+  .system-info-right {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }
