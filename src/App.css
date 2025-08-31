@@ -91,6 +91,17 @@ body {
   display: block;
 }
 
+.x-logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+.x-logo a:hover {
+  opacity: 0.8;
+}
+
 .terminal-content {
   flex: 1;
   padding: 16px;
