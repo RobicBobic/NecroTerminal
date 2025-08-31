@@ -66,12 +66,29 @@ body {
   display: flex;
   gap: 24px;
   font-size: 12px;
+  align-items: center;
 }
 
 .stat-item {
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.x-logo {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  margin-left: 8px;
+}
+
+.x-logo:hover {
+  background-color: #333;
+}
+
+.x-logo svg {
+  display: block;
 }
 
 .terminal-content {
@@ -367,5 +384,9 @@ body {
   .system-info-right {
     flex-wrap: wrap;
     gap: 8px;
+  }
+
+  .x-logo {
+    margin-left: 0;
   }
 }
